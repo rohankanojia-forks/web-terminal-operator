@@ -4,7 +4,7 @@ metadata:
 components:
   - name: tools
     container:
-      image: quay.io/wto/web-terminal-operator-devtools:latest
+      image: docker.io/rohankanojia/web-terminal-operator-devtools:latest
       memoryRequest: 1Gi
       memoryLimit: 16Gi
       cpuLimit: '4'
