@@ -19,8 +19,10 @@ import (
 )
 
 const (
-	toolingImageEnvVar = "RELATED_IMAGE_web_terminal_tooling"
-	execImageEnvVar    = "RELATED_IMAGE_web_terminal_exec"
+	toolingImageEnvVar      = "RELATED_IMAGE_web_terminal_tooling"
+	execImageEnvVar         = "RELATED_IMAGE_web_terminal_exec"
+	namespaceEnvVar         = "WATCH_NAMESPACE"
+	defaultOperatorNamespace = "openshift-operators"
 )
 
 func GetDefaultToolingImage() (string, error) {
@@ -40,9 +42,17 @@ func GetDefaultExecImage() (string, error) {
 }
 
 func GetNamespace() (string, error) {
+	// Try reading from serviceaccount namespace file (when running in pod)
 	namespace, err := ioutil.ReadFile("/var/run/secrets/kubernetes.io/serviceaccount/namespace")
-	if err != nil {
-		return "", err
+	if err == nil {
+		return string(namespace), nil
 	}
-	return string(namespace), err
+
+	// Fallback to WATCH_NAMESPACE env var (for local development)
+	if ns := os.Getenv(namespaceEnvVar); ns != "" {
+		return ns, nil
+	}
+
+	// Fallback to default operator namespace
+	return defaultOperatorNamespace, nil
 }
