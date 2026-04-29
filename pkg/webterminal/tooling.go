@@ -31,7 +31,7 @@ func syncToolingTemplate(ctx context.Context, client crclient.Client, namespace 
 	if err != nil {
 		return err
 	}
-	specDWT, err := getSpecToolingTemplate(namespace)
+	specDWT, err := getSpecToolingTemplate(ctx, client, namespace)
 	if err != nil {
 		return nil
 	}
@@ -101,8 +101,9 @@ func handleUnmanagedToolingState(spec, cluster *dw.DevWorkspaceTemplate) *dw.Dev
 	return result
 }
 
-func getSpecToolingTemplate(namespace string) (*dw.DevWorkspaceTemplate, error) {
-	image, err := config.GetDefaultToolingImage()
+func getSpecToolingTemplate(ctx context.Context, client crclient.Client, namespace string) (*dw.DevWorkspaceTemplate, error) {
+	// Try to get version-specific image, falls back to default if not available
+	image, err := config.GetImageForVersion(ctx, client, "tooling")
 	if err != nil {
 		return nil, err
 	}

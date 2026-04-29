@@ -4,9 +4,12 @@ go 1.25.7
 
 require (
 	github.com/devfile/api/v2 v2.2.0
+	github.com/openshift/api v0.0.0-20210521075222-e273a339932a
+	k8s.io/api v0.21.3
 	k8s.io/apimachinery v0.21.3
 	k8s.io/client-go v0.21.3
 	sigs.k8s.io/controller-runtime v0.9.5
+	sigs.k8s.io/yaml v1.2.0
 )
 
 require (
@@ -50,12 +53,10 @@ require (
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.21.3 // indirect
 	k8s.io/apiextensions-apiserver v0.21.3 // indirect
 	k8s.io/component-base v0.21.3 // indirect
 	k8s.io/klog/v2 v2.8.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20210305001622-591a79e4bda7 // indirect
 	k8s.io/utils v0.0.0-20210722164352-7f3ee0f31471 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.1.2 // indirect
-	sigs.k8s.io/yaml v1.2.0 // indirect
 )

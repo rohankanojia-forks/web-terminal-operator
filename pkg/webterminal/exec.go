@@ -32,7 +32,7 @@ func syncExecTemplate(ctx context.Context, client crclient.Client, namespace str
 	if err != nil {
 		return err
 	}
-	specDWT, err := getSpecExecTemplate(namespace)
+	specDWT, err := getSpecExecTemplate(ctx, client, namespace)
 	if err != nil {
 		return nil
 	}
@@ -102,8 +102,9 @@ func handleUnmanagedExecState(spec, cluster *dw.DevWorkspaceTemplate) *dw.DevWor
 	return result
 }
 
-func getSpecExecTemplate(namespace string) (*dw.DevWorkspaceTemplate, error) {
-	image, err := config.GetDefaultExecImage()
+func getSpecExecTemplate(ctx context.Context, client crclient.Client, namespace string) (*dw.DevWorkspaceTemplate, error) {
+	// Try to get version-specific image, falls back to default if not available
+	image, err := config.GetImageForVersion(ctx, client, "exec")
 	if err != nil {
 		return nil, err
 	}

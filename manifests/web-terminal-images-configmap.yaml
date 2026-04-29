@@ -1,0 +1,45 @@
+#
+# Copyright (c) 2021-2024 Red Hat, Inc.
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+# Contributors:
+#   Red Hat, Inc. - initial API and implementation
+#
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-terminal-images
+  namespace: openshift-operators
+data:
+  images.yaml: |
+    # Image mappings for different OpenShift versions
+    # Format: major.minor (e.g., "4.12", "4.13")
+    mappings:
+      - openshiftVersion: "4.12"
+        toolingImage: "registry.redhat.io/web-terminal/web-terminal-tooling:4.12"
+        execImage: "registry.redhat.io/web-terminal/web-terminal-exec:4.12"
+      - openshiftVersion: "4.13"
+        toolingImage: "registry.redhat.io/web-terminal/web-terminal-tooling:4.13"
+        execImage: "registry.redhat.io/web-terminal/web-terminal-exec:4.13"
+      - openshiftVersion: "4.14"
+        toolingImage: "registry.redhat.io/web-terminal/web-terminal-tooling:4.14"
+        execImage: "registry.redhat.io/web-terminal/web-terminal-exec:4.14"
+      - openshiftVersion: "4.15"
+        toolingImage: "registry.redhat.io/web-terminal/web-terminal-tooling:4.15"
+        execImage: "registry.redhat.io/web-terminal/web-terminal-exec:4.15"
+      - openshiftVersion: "4.16"
+        toolingImage: "registry.redhat.io/web-terminal/web-terminal-tooling:4.16"
+        execImage: "registry.redhat.io/web-terminal/web-terminal-exec:4.16"
+
+    # Default images used when:
+    # - No mapping exists for the detected OpenShift version
+    # - ConfigMap cannot be read
+    # - As fallback for any errors
+    default:
+      toolingImage: "${RELATED_IMAGE_web_terminal_tooling}"
+      execImage: "${RELATED_IMAGE_web_terminal_exec}"

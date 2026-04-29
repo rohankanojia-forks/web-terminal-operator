@@ -28,6 +28,7 @@ import (
 
 	dwv1 "github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha1"
 	dwv2 "github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha2"
+	configv1 "github.com/openshift/api/config/v1"
 
 	"github.com/redhat-developer/web-terminal-operator/pkg/webterminal"
 )
@@ -41,6 +42,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 	utilruntime.Must(dwv1.AddToScheme(scheme))
 	utilruntime.Must(dwv2.AddToScheme(scheme))
+	utilruntime.Must(configv1.AddToScheme(scheme))
 }
 
 func main() {

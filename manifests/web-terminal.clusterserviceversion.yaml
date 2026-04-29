@@ -101,6 +101,15 @@ spec:
                 name: web-terminal-controller
                 resources: {}
               serviceAccountName: web-terminal-controller
+      clusterPermissions:
+        - rules:
+          - apiGroups:
+            - config.openshift.io
+            resources:
+            - clusterversions
+            verbs:
+            - get
+          serviceAccountName: web-terminal-controller
       permissions:
         - rules:
           - apiGroups:
@@ -109,6 +118,12 @@ spec:
             - devworkspacetemplates
             verbs:
             - '*'
+          - apiGroups:
+            - ""
+            resources:
+            - configmaps
+            verbs:
+            - get
           serviceAccountName: web-terminal-controller
     strategy: deployment
   installModes:
