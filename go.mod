@@ -1,6 +1,6 @@
 module github.com/redhat-developer/web-terminal-operator
 
-go 1.26.4
+go 1.26.5
 
 require (
 	github.com/devfile/api/v2 v2.2.0
